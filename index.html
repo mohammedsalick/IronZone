@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./ironLogo.png">
+    
+    <title>IRONZONE - Premium Steam Ironing Services | Pernambut</title>
+    <meta name="description" content="Professional steam ironing services with FREE pickup & delivery in Pernambut. Crisp, wrinkle-free clothes with premium care for all fabrics.">
+    
+    <style>
+        /* Base Styles */
+        :root {
+            --royal-blue: #2a52be;
+            --deep-blue: #1a3a8f;
+            --vibrant-orange: #ff6b35;
+            --golden-orange: #f7931e;
+            --pure-white: #ffffff;
+            --light-gray: #f8f9ff;
+            --dark-gray: #333333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            overflow-x: hidden;
+            background-color: var(--pure-white);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--royal-blue) 100%);
+            color: var(--pure-white);
+            padding: 6rem 0 8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.15) 0%, transparent 30%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: linear-gradient(to right, var(--pure-white) 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo span {
+            color: var(--vibrant-orange);
+            -webkit-text-fill-color: var(--vibrant-orange);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: var(--pure-white);
+        }
+        
+        .btn-call {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-orange));
+            color: var(--pure-white);
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            color: var(--deep-blue);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--vibrant-orange), var(--golden-orange));
+            border-radius: 5px;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--light-gray);
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%232a52be" stroke-width="0.5" opacity="0.1"/></svg>');
+            opacity: 0.1;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-icons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .icon-card {
+            background: var(--pure-white);
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .icon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--royal-blue);
+        }
+        
+        /* Services Section */
+        .services {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--royal-blue) 100%);
+            color: var(--pure-white);
+            clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+            padding: 8rem 0;
+            margin: -2rem 0;
+        }
+        
+        .services .section-title {
+            color: var(--pure-white);
+        }
+        
+        .services .section-title::after {
+            background: linear-gradient(90deg, var(--vibrant-orange), var(--golden-orange));
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--vibrant-orange), var(--golden-orange));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .service-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .service-desc {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        /* Features Section */
+        .features {
+            background: linear-gradient(135deg, var(--vibrant-orange) 0%, var(--golden-orange) 100%);
+            color: var(--pure-white);
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            padding: 8rem 0;
+            margin: -3rem 0;
+        }
+        
+        .features .section-title {
+            color: var(--pure-white);
+        }
+        
+        .features .section-title::after {
+            background: var(--pure-white);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            margin-top: 0.3rem;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Testimonial Section */
+        .testimonials {
+            background-color: var(--light-gray);
+            position: relative;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: var(--pure-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -1.5rem;
+            left: -1rem;
+            opacity: 0.1;
+            line-height: 1;
+            color: var(--royal-blue);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--royal-blue);
+            color: var(--pure-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23ffffff" stroke-width="1" opacity="0.1"/></svg>');
+            opacity: 0.2;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--light-gray);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            background: var(--pure-white);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--royal-blue);
+            display: inline-block;
+        }
+        
+        .contact-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--deep-blue);
+        }
+        
+        .contact-info {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .contact-info a {
+            color: var(--royal-blue);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--vibrant-orange);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            background: linear-gradient(135deg, var(--deep-blue), var(--royal-blue));
+            color: var(--pure-white);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-link i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: var(--pure-white);
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-logo span {
+            color: var(--vibrant-orange);
+        }
+        
+        .footer-text {
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-icons {
+                order: -1;
+                max-width: 500px;
+                margin: 0 auto 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .services, .features {
+                clip-path: none;
+                padding: 5rem 0;
+                margin: 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 3rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding: 4rem 0 6rem;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 1rem;
+            }
+            
+            .cta-buttons {
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="logo">IRON<span>ZONE</span></div>
+                <h1>Premium Steam Ironing Services</h1>
+                <p class="hero-subtitle">Professional care for all your garments with free pickup and delivery across Pernambut. Experience wrinkle-free perfection with every press.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.link/qqs5cy" class="btn btn-whatsapp"><i>📲</i> Book via WhatsApp</a>
+                    <a href="tel:+917200468444" class="btn btn-call"><i>📞</i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section">
+        <div class="container">
+            <h2 class="section-title">About Our Service</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>IRONZONE brings professional steam ironing services right to your doorstep in Pernambut. We specialize in transforming wrinkled clothes into crisp, fresh garments using state-of-the-art steam pressing technology.</p>
+                    <p>Our experienced team handles everything from formal shirts and trousers to delicate sarees and kurtis with meticulous attention. We combine traditional ironing techniques with modern steam technology for perfect results every time.</p>
+                    <p>With free pickup and delivery, transparent pricing, and quick turnaround times, we make garment care effortless for our customers.</p>
+                </div>
+                <div class="about-icons">
+                    <div class="icon-card">
+                        <span class="icon">👔</span>
+                        <h3>Formal Wear</h3>
+                    </div>
+                    <div class="icon-card">
+                        <span class="icon">👗</span>
+                        <h3>Delicate Fabrics</h3>
+                    </div>
+                    <div class="icon-card">
+                        <span class="icon">🧥</span>
+                        <h3>Outerwear</h3>
+                    </div>
+                    <div class="icon-card">
+                        <span class="icon">🛍️</span>
+                        <h3>Bulk Orders</h3>
+                    </div>
+                    <div class="icon-card">
+                        <span class="icon">🚚</span>
+                        <h3>Free Delivery</h3>
+                    </div>
+                    <div class="icon-card">
+                        <span class="icon">⏱️</span>
+                        <h3>Fast Service</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">💨</span>
+                    <h3 class="service-title">Professional Steam Pressing</h3>
+                    <p class="service-desc">Superior steam technology removes wrinkles effectively while sanitizing your clothes</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🚪</span>
+                    <h3 class="service-title">Doorstep Service</h3>
+                    <p class="service-desc">Convenient pickup and delivery right at your home or office</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">👚</span>
+                    <h3 class="service-title">Delicate Fabric Care</h3>
+                    <p class="service-desc">Specialized handling for silk, satin, chiffon and embroidered items</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🧴</span>
+                    <h3 class="service-title">Hygienic Processing</h3>
+                    <p class="service-desc">High-temperature steam eliminates germs and odors</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">⏱️</span>
+                    <h3 class="service-title">Express Service</h3>
+                    <p class="service-desc">Same-day or next-day turnaround available</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">💰</span>
+                    <h3 class="service-title">Transparent Pricing</h3>
+                    <p class="service-desc">No hidden charges - clear rates for all garment types</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section">
+        <div class="container">
+            <h2 class="section-title">Why Choose IRONZONE?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <div class="feature-content">
+                        <h3>Premium Quality</h3>
+                        <p>Professional results that last longer than home ironing</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⏰</span>
+                    <div class="feature-content">
+                        <h3>Time-Saving</h3>
+                        <p>Free up hours in your week by outsourcing your ironing</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧼</span>
+                    <div class="feature-content">
+                        <h3>Sanitized Garments</h3>
+                        <p>Steam eliminates bacteria and allergens from fabrics</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">👔</span>
+                    <div class="feature-content">
+                        <h3>Crisp Finishes</h3>
+                        <p>Perfect creases and wrinkle-free results every time</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <div class="feature-content">
+                        <h3>Affordable Rates</h3>
+                        <p>Competitive pricing with no hidden costs</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">👍</span>
+                    <div class="feature-content">
+                        <h3>Satisfaction Guaranteed</h3>
+                        <p>We stand behind our work with a quality promise</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        My shirts have never looked better! The service is reliable and the quality is consistently excellent. Highly recommend IRONZONE for anyone who values crisp, professional-looking clothes.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-info">
+                            <h4>Rajesh Kumar</h4>
+                            <p>Regular Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        As a working professional, IRONZONE saves me so much time. The free pickup and delivery is a game-changer, and my clothes always come back perfectly pressed.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PM</div>
+                        <div class="author-info">
+                            <h4>Priya M.</h4>
+                            <p>Office Worker</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        I was hesitant to trust someone with my delicate sarees, but IRONZONE handles them with such care. The results are beautiful and the convenience is unbeatable.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <h4>Sangeetha K.</h4>
+                            <p>Homemaker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <div class="container">
+            <div class="cta-content">
+                <h3 class="cta-title">🚚 FREE Pickup & Delivery in Pernambut!</h3>
+                <p>Limited time offer - Book your first service today</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="contact-icon">📍</span>
+                    <h3 class="contact-title">Our Location</h3>
+                    <div class="contact-info">
+                        48/A1, MM Road (Upstairs)<br>
+                        Bazar, Pernambut-635810<br>
+                        Vellore District, Tamil Nadu
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">📞</span>
+                    <h3 class="contact-title">Call Us</h3>
+                    <div class="contact-info">
+                        <a href="tel:+917200468444">72004 68444</a><br>
+                        <a href="tel:+919840662140">98406 62140</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">💬</span>
+                    <h3 class="contact-title">WhatsApp</h3>
+                    <div class="contact-info">
+                        <a href="https://wa.link/qqs5cy">Chat Now</a><br>
+                        Quick responses for bookings and inquiries
+                    </div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/ironman_steamironing/" class="social-link"><i>📸</i> Instagram</a>
+                <a href="https://www.facebook.com/p/IRON-MAN-Steam-Ironing-100076565100651/" class="social-link"><i>📘</i> Facebook</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">IRON<span>ZONE</span></div>
+            <p class="footer-text">Premium steam ironing services with free pickup and delivery in Pernambut. Professional care for all fabrics with guaranteed satisfaction.</p>
+            <p class="copyright">© 2025 IRONZONE Steam Ironing Services. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
