@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#9AC24B',
+                        'primary-dark': '#7da63a',
+                        'secondary': '#0a7ea4',
+                        'secondary-dark': '#086b88',
+                        'accent': '#9AC24B',
+                        'accent-light': '#b8d164',
+                        'text-primary': '#333333',
+                        'text-secondary': '#666666',
+                        'text-light': '#999999',
+                        'bg-main': '#f5f5f5',
+                        'bg-card': '#ffffff',
+                        'bg-input': '#f9f9fa',
+                        'bg-disabled': '#f0f0f0',
+                        'border-light': '#eeeeee',
+                        'border-input': '#dddddd',
+                        'border-medium': '#e0e0e0',
+                        'success': '#4CAF50',
+                        'warning': '#f57c00',
+                        'error': '#F44336',
+                        'active': '#4CAF50',
+                        'inactive': '#F44336',
+                        'pending': '#9AC24B',
+                        'delivered': '#4CAF50',
+                        'cancelled': '#F44336',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'elegant': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)',
+                        'card': '0 4px 12px rgba(0, 0, 0, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Delete Account | IRONZONE</title>
+    <meta name="description" content="Request account deletion for IRONZONE Steam Ironing & Laundry Service.">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-bg-main text-text-primary min-h-screen">
+    <nav class="flex items-center justify-between p-4 sm:p-5 w-full bg-white z-50 shadow-sm backdrop-blur-sm bg-white/90">
+        <div class="flex items-center">
+            <img src="iron.png" alt="IRONZONE logo - Steam Ironing Service Pernambut" class="w-8 h-8 sm:w-10 sm:h-10 mr-2">
+            <span class="font-bold text-lg hidden sm:inline-block">IRONZONE</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="text-accent font-semibold hover:underline text-sm sm:text-base">Home</a>
+            <a href="privacy-policy.html" class="text-accent font-semibold hover:underline text-sm sm:text-base">Privacy Policy</a>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto bg-white rounded-2xl shadow-card mt-16 mb-16 p-6 sm:p-10">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-error mb-2">Delete Your Account</h1>
+        <p class="text-text-light text-sm mb-8">Last updated: September 10, 2025</p>
+        <p class="mb-6 text-text-secondary">We respect your privacy and your right to control your data. If you wish to delete your IronZone account and all associated personal information, please follow the instructions below.</p>
+
+        <div class="bg-error/10 border-l-4 border-error p-5 rounded-xl mb-8">
+            <h2 class="text-lg font-bold text-error mb-2">How to Request Account Deletion</h2>
+            <ol class="list-decimal pl-6 text-text-secondary mb-2">
+                <li>Email us at <a href="mailto:ironzoneindia@gmail.com" class="text-accent hover:underline">ironzoneindia@gmail.com</a> from your registered email address or mention your registered phone number.</li>
+                <li>Use the subject line: <span class="font-semibold">Account Deletion Request</span>.</li>
+                <li>Include your registered email and/or phone number in the message for verification.</li>
+            </ol>
+            <p class="mt-3 text-text-secondary">Once we receive your request, all your personal data (email, phone, password) will be deleted from our database within 30 days.</p>
+        </div>
+
+        <div class="bg-bg-main border border-border-light rounded-xl p-5">
+            <h2 class="text-lg font-bold text-primary mb-2">Need Help?</h2>
+            <p class="text-text-secondary">If you have any questions or concerns about account deletion or your data, please contact us at <a href="mailto:ironzoneindia@gmail.com" class="text-accent hover:underline">ironzoneindia@gmail.com</a>.</p>
+        </div>
+    </main>
+
+    <footer class="py-10 border-t border-border-light bg-accent/5">
+        <div class="max-w-2xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-text-secondary text-sm">© 2025 IRONZONE Steam Ironing Services. All rights reserved.</p>
+            <a href="index.html" class="text-accent font-semibold hover:underline text-sm">Back to Home</a>
+        </div>
+    </footer>
+</body>
+</html>
