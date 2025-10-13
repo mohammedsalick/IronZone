@@ -1,14 +1,12 @@
-//IronZoneWEb/pay.html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IronZone - Secure Payment</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Set Inter Font -->
+    <!-- Correct QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -29,17 +27,15 @@
             }
         }
 
-        // --- MOCK MERCHANT DETAILS (REPLACE WITH YOUR LIVE DATA) ---
-        const MERCHANT_UPI_VPA = 'ironzone@kyb'; // Your correct merchant VPA
+        // const UPI_ID = 'ironzone@kvb'; 
+
+        const UPI_ID = '6363785019@superyes'; 
         const MERCHANT_NAME = 'IronZone Service';
-        const MERCHANT_MCC = '7299'; // Merchant Category Code for Cleaning/Laundry Services
-        const BASE_UPI_LINK = `upi://pay?pa=${MERCHANT_UPI_VPA}&pn=${encodeURIComponent(MERCHANT_NAME)}&mc=${MERCHANT_MCC}&mode=02&purpose=00&am=AMOUNT&tr=ORDER_ID`;
-        // -------------------------------------------------------------
+        const MERCHANT_MCC = '7299';
 
         let currentOrderId = '';
         let currentAmount = 0;
 
-        // Function to show a clean status message (replaces alert())
         const showStatusMessage = (message, isError = false) => {
             const statusBox = document.getElementById('status-message-box');
             const statusText = document.getElementById('status-message-text');
@@ -52,16 +48,12 @@
             } else {
                 statusBox.classList.add('bg-green-100', 'text-green-800');
             }
-            // Hide after 5 seconds
             setTimeout(() => statusBox.classList.add('hidden'), 5000);
         };
 
-
-        // Function to parse URL and populate the page
         const loadPaymentDetails = () => {
             const urlParams = new URLSearchParams(window.location.search);
             
-            // 1. Get and validate parameters
             const orderId = urlParams.get('orderId');
             const amount = parseFloat(urlParams.get('amount'));
             
@@ -78,39 +70,51 @@
             currentOrderId = orderId;
             currentAmount = amount;
 
-            // 2. Update UI elements
             document.getElementById('order-id').textContent = orderId;
             document.getElementById('amount-due').textContent = `₹${amount.toFixed(2)}`;
             
-            // 3. Generate the UPI Deep Link
-            const dynamicUpiLink = BASE_UPI_LINK
-                .replace('AMOUNT', amount.toFixed(2))
-                .replace('ORDER_ID', orderId);
+            // Update VPA display
+            document.getElementById('vpa-display').value = UPI_ID;
+            
+            const dynamicUpiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(MERCHANT_NAME)}&mc=${MERCHANT_MCC}&mode=02&purpose=00&am=${amount.toFixed(2)}&tr=${orderId}`;
 
             document.getElementById('pay-now-btn').href = dynamicUpiLink;
 
-            // 4. Generate the mock QR Code URL (For visual instruction only)
-            const qrText = `Order: ${orderId} | Amount: ₹${amount.toFixed(2)}`;
-            const qrPlaceholderUrl = `https://placehold.co/200x200/9AC24B/ffffff?text=${encodeURIComponent('Scan\nIronZone\n'+orderId)}&font=inter`;
-            document.getElementById('qr-code-img').src = qrPlaceholderUrl;
+            const qrcodeContainer = document.getElementById('qrcode-container');
+            qrcodeContainer.innerHTML = ''; 
+
+            try {
+                new QRCode(qrcodeContainer, {
+                    text: dynamicUpiLink,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (error) {
+                qrcodeContainer.innerHTML = '<p class="text-red-600 text-sm">QR Code generation failed</p>';
+                console.error('QR Code Error:', error);
+            }
             
-            // 5. Simulate a successful payment update after a click (for demo purposes)
             document.getElementById('pay-now-btn').onclick = (e) => {
-                // e.preventDefault(); // Uncomment in a real scenario if you use a PG to capture clicks before redirect
                 showStatusMessage('Redirecting to your UPI App...');
             };
 
-             document.getElementById('copy-vpa-btn').onclick = () => {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = MERCHANT_UPI_VPA;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                showStatusMessage('UPI VPA copied: ' + MERCHANT_UPI_VPA);
+            document.getElementById('copy-vpa-btn').onclick = () => {
+                navigator.clipboard.writeText(UPI_ID).then(() => {
+                    showStatusMessage('UPI VPA copied: ' + UPI_ID);
+                }).catch(() => {
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = UPI_ID;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    showStatusMessage('UPI VPA copied: ' + UPI_ID);
+                });
             };
         };
-
 
         window.onload = loadPaymentDetails;
     </script>
@@ -118,18 +122,15 @@
 <body class="min-h-screen flex items-center justify-center p-4">
     <div id="payment-card" class="w-full max-w-md bg-white shadow-xl rounded-xl overflow-hidden">
         
-        <!-- Header -->
         <div class="bg-primary p-6">
             <h1 class="text-3xl font-extrabold text-white text-center">IronZone Payment</h1>
             <p class="text-white text-center text-sm mt-1 opacity-90">Securely powered by UPI Intent</p>
         </div>
 
-        <!-- Status Message Box -->
         <div id="status-message-box" class="hidden mx-4 mt-4 p-3 rounded-lg text-sm font-medium border border-transparent">
             <p id="status-message-text"></p>
         </div>
 
-        <!-- Order Summary -->
         <div class="p-6 border-b border-gray-100">
             <div class="flex justify-between items-center mb-4">
                 <p class="text-lg text-gray-600 font-medium">Order ID</p>
@@ -141,10 +142,8 @@
             </div>
         </div>
 
-        <!-- Payment Options -->
         <div class="p-6 space-y-6">
             
-            <!-- UPI Intent Button (Mobile Flow) -->
             <div class="space-y-3">
                 <h2 class="text-xl font-bold text-gray-800 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2 text-blue-600">
@@ -159,14 +158,12 @@
                 <p class="text-xs text-gray-500 text-center">Tapping this redirects you to Google Pay, PhonePe, or Paytm.</p>
             </div>
 
-            <!-- Separator -->
             <div class="flex items-center">
                 <div class="flex-grow border-t border-gray-200"></div>
                 <span class="flex-shrink mx-4 text-gray-500 text-sm">OR</span>
                 <div class="flex-grow border-t border-gray-200"></div>
             </div>
 
-            <!-- QR Code (Desktop/Scan Flow) -->
             <div class="space-y-3 text-center">
                 <h2 class="text-xl font-bold text-gray-800 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2 text-primary">
@@ -175,26 +172,23 @@
                     Scan QR Code
                 </h2>
                 <div class="inline-block p-2 border-4 border-primary rounded-lg shadow-lg">
-                    <img id="qr-code-img" src="" alt="UPI QR Code for Payment" class="w-48 h-48 rounded-md" />
+                    <div id="qrcode-container" class="w-[200px] h-[200px] flex items-center justify-center"></div>
                 </div>
                 <p class="text-sm text-gray-600">Scan this from any UPI app on another device.</p>
             </div>
             
-             <!-- Manual UPI VPA -->
-             <div class="pt-4 border-t border-gray-100">
+            <div class="pt-4 border-t border-gray-100">
                 <p class="text-sm text-gray-700 font-medium mb-2">Manual Payment (Enter VPA):</p>
                 <div class="flex items-center space-x-2">
-                    <input type="text" readonly id="vpa-display" value="${MERCHANT_UPI_VPA}" class="flex-grow p-2 text-sm bg-gray-100 border border-gray-300 rounded-lg font-mono text-gray-800 cursor-text select-all">
+                    <input type="text" readonly id="vpa-display" class="flex-grow p-2 text-sm bg-gray-100 border border-gray-300 rounded-lg font-mono text-gray-800 cursor-text select-all">
                     <button id="copy-vpa-btn" class="bg-primary-dark hover:bg-primary-dark/80 text-white p-2 rounded-lg text-sm transition duration-150">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v2.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V6.75a1.5 1.5 0 0 1 1.5-1.5h2.25M11.25 7.75l4.5 4.5m0 0-4.5 4.5m4.5-4.5H3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-
-        
     </div>
 </body>
 </html>
