@@ -41,6 +41,7 @@
 
         let currentOrderId = '';
         let currentAmount = 0;
+        let currentUpiLink = '';
 
         const showStatusMessage = (message, isError = false) => {
             const statusBox = document.getElementById('status-message-box');
@@ -84,7 +85,8 @@
 
             const dynamicUpiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Order ' + orderId)}`;
 
-            document.getElementById('pay-now-btn').href = dynamicUpiLink;
+            // Store globally for button click
+            currentUpiLink = dynamicUpiLink;
 
             const qrcodeContainer = document.getElementById('qrcode-container');
             qrcodeContainer.innerHTML = '';
@@ -104,7 +106,13 @@
             }
 
             document.getElementById('pay-now-btn').onclick = (e) => {
+                e.preventDefault();
                 showStatusMessage('Redirecting to your UPI App...');
+
+                // Use window.location.href for reliable UPI intent trigger on mobile
+                setTimeout(() => {
+                    window.location.href = currentUpiLink;
+                }, 100);
             };
 
             document.getElementById('copy-vpa-btn').onclick = () => {
@@ -162,10 +170,10 @@
                     </svg>
                     Pay with UPI App
                 </h2>
-                <a id="pay-now-btn" href="#"
-                    class="block text-center w-full py-3 px-4 bg-whatsapp-green text-white font-bold rounded-lg shadow-md transition duration-200 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
+                <button id="pay-now-btn" type="button"
+                    class="block text-center w-full py-3 px-4 bg-whatsapp-green text-white font-bold rounded-lg shadow-md transition duration-200 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 cursor-pointer">
                     Pay Now via UPI App
-                </a>
+                </button>
                 <p class="text-xs text-gray-500 text-center">Tapping this redirects you to Google Pay, PhonePe, or
                     Paytm.</p>
             </div>
