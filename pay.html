@@ -35,7 +35,7 @@
 
         const UPI_ID = '6363785019@superyes';
 
-        // const UPI_ID = 'mohammednabhaanvalai-2@okhdfcbank'; 
+
         const MERCHANT_NAME = 'IronZone Service';
         const MERCHANT_MCC = '7299';
 
@@ -82,7 +82,7 @@
             // Update VPA display
             document.getElementById('vpa-display').value = UPI_ID;
 
-            const dynamicUpiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(MERCHANT_NAME)}&mc=${MERCHANT_MCC}&mode=02&purpose=00&am=${amount.toFixed(2)}&tr=${orderId}`;
+            const dynamicUpiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Order ' + orderId)}`;
 
             document.getElementById('pay-now-btn').href = dynamicUpiLink;
 
