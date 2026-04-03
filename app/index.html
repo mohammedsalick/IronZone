@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get IRON ZONE — Steam Ironing App</title>
+  <meta name="description" content="Download the IRON ZONE app for iOS or Android. Book steam ironing with pickup and delivery.">
+  <meta name="apple-itunes-app" content="app-id=6752514444">
+  <link rel="icon" type="image/jpeg" href="/ironLogo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lime: #98c15d;
+      --lime-soft: rgba(152, 193, 93, 0.18);
+      --black: #0a0a0a;
+      --white: #fafafa;
+      --muted: #5c5c5c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    .bg-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: linear-gradient(165deg, #ffffff 0%, #f2f2ef 48%, #ebeae6 100%);
+    }
+
+    .bg-stage__aurora {
+      position: absolute;
+      inset: -50%;
+      background:
+        radial-gradient(ellipse 55% 45% at 30% 15%, rgba(152, 193, 93, 0.22), transparent 62%),
+        radial-gradient(ellipse 50% 40% at 75% 85%, rgba(152, 193, 93, 0.14), transparent 58%),
+        radial-gradient(ellipse 40% 35% at 90% 20%, rgba(10, 10, 10, 0.05), transparent 55%);
+      animation: aurora-drift 28s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes aurora-drift {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+      33% {
+        transform: translate(4%, -3%) rotate(1.5deg) scale(1.03);
+      }
+      66% {
+        transform: translate(-3%, 2%) rotate(-1deg) scale(1.02);
+      }
+      100% {
+        transform: translate(2%, 1%) rotate(0.5deg) scale(1);
+      }
+    }
+
+    .bg-stage__blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(72px);
+      opacity: 0.55;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .bg-stage__blob--1 {
+      width: min(72vw, 520px);
+      height: min(72vw, 520px);
+      left: -18%;
+      top: 8%;
+      background: radial-gradient(circle at 40% 40%, rgba(152, 193, 93, 0.45), rgba(152, 193, 93, 0.08) 55%, transparent 70%);
+      animation: blob-float-a 22s ease-in-out infinite;
+    }
+
+    .bg-stage__blob--2 {
+      width: min(58vw, 420px);
+      height: min(58vw, 420px);
+      right: -12%;
+      bottom: 5%;
+      background: radial-gradient(circle at 55% 50%, rgba(180, 200, 140, 0.35), rgba(152, 193, 93, 0.06) 60%, transparent 75%);
+      animation: blob-float-b 26s ease-in-out infinite;
+    }
+
+    .bg-stage__blob--3 {
+      width: min(44vw, 320px);
+      height: min(44vw, 320px);
+      left: 35%;
+      bottom: 28%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9), rgba(240, 240, 236, 0.25) 45%, transparent 68%);
+      filter: blur(56px);
+      opacity: 0.85;
+      mix-blend-mode: soft-light;
+      animation: blob-float-c 19s ease-in-out infinite;
+    }
+
+    @keyframes blob-float-a {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      40% { transform: translate(6%, 4%) scale(1.06); }
+      70% { transform: translate(-4%, -3%) scale(0.97); }
+    }
+
+    @keyframes blob-float-b {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      35% { transform: translate(-5%, -6%) scale(1.05); }
+      65% { transform: translate(4%, 5%) scale(0.98); }
+    }
+
+    @keyframes blob-float-c {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-3%, 5%) scale(1.04); }
+    }
+
+    .bg-stage__grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.045;
+      background-image:
+        linear-gradient(rgba(10, 10, 10, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10, 10, 10, 0.5) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 20%, transparent 72%);
+      animation: grid-pan 80s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes grid-pan {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 48px 48px, 48px 48px; }
+    }
+
+    .bg-stage__noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    .bg-stage__vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 75% 65% at 50% 42%, transparent 0%, rgba(250, 250, 250, 0.35) 100%);
+    }
+
+    .steam {
+      position: absolute;
+      bottom: 0;
+      left: -10%;
+      width: 45%;
+      height: 40%;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+
+    .steam path {
+      fill: none;
+      stroke: var(--black);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 8 14;
+      animation: drift 10s ease-in-out infinite, steam-dash 14s ease-in-out infinite;
+    }
+
+    .steam path:nth-child(2) {
+      animation-delay: -2.2s, -4s;
+    }
+
+    .steam path:nth-child(3) {
+      animation-delay: -4.4s, -8s;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateX(0) translateY(0); opacity: 0.85; }
+      50% { transform: translateX(14px) translateY(-10px); opacity: 1; }
+    }
+
+    @keyframes steam-dash {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: -28; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-stage__aurora,
+      .bg-stage__blob,
+      .bg-stage__grid,
+      .steam path {
+        animation: none !important;
+      }
+
+      .bg-stage__aurora {
+        transform: none;
+      }
+
+      .bg-stage__blob--1,
+      .bg-stage__blob--2,
+      .bg-stage__blob--3 {
+        transform: none;
+      }
+
+      .steam path {
+        stroke-dasharray: none;
+      }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 28px;
+      padding: 2.5rem 2rem 2rem;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 24px 48px -12px rgba(10, 10, 10, 0.1),
+        0 0 0 1px rgba(10, 10, 10, 0.05);
+      text-align: center;
+      animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card > *:not(.logo-ring) {
+      animation: content-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+
+    .card > *:nth-child(2) { animation-delay: 0.12s; }
+    .card > *:nth-child(3) { animation-delay: 0.18s; }
+    .card > *:nth-child(4) { animation-delay: 0.24s; }
+    .card > *:nth-child(5) { animation-delay: 0.3s; }
+    .card > *:nth-child(6) { animation-delay: 0.36s; }
+    .card > *:nth-child(7) { animation-delay: 0.42s; }
+
+    @keyframes content-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-ring {
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 1.5rem;
+      border-radius: 36px;
+      background: linear-gradient(145deg, #fff 0%, #f0f0ee 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 28px rgba(10, 10, 10, 0.08);
+      animation:
+        logo-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s backwards,
+        logo-float 7s ease-in-out 0.85s infinite;
+    }
+
+    @keyframes logo-enter {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes logo-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .logo-ring img {
+      width: 96px;
+      height: auto;
+      display: block;
+    }
+
+    .kicker {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.35em;
+      color: var(--lime);
+      margin-bottom: 0.35rem;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 1.75rem;
+      max-width: 28ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.65; }
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--lime);
+      color: var(--black);
+      box-shadow: 0 8px 20px rgba(152, 193, 93, 0.35);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 10px 28px rgba(152, 193, 93, 0.42);
+    }
+
+    .btn-ghost {
+      background: var(--black);
+      color: #fff;
+    }
+
+    .btn-ghost:hover {
+      background: #1a1a1a;
+    }
+
+    .hint {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .hint a {
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+
+    footer a {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-stage" aria-hidden="true">
+    <svg class="steam" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 180 Q40 140 30 100 Q25 70 45 50" />
+      <path d="M50 185 Q65 150 55 110 Q50 75 70 55" />
+      <path d="M80 188 Q95 155 85 115 Q78 80 95 60" />
+    </svg>
+  </div>
+
+  <main class="wrap">
+    <div class="card">
+      <div class="logo-ring">
+        <img src="/ironLogo.jpg" alt="IRON ZONE logo" width="96" height="96" fetchpriority="high">
+      </div>
+      <p class="kicker">STEAM IRONING</p>
+      <h1>IRON ZONE</h1>
+      <p class="sub" id="sub">Taking you to the right store for your phone. Book pickups, track orders, and more.</p>
+
+      <div class="status" id="status" role="status" aria-live="polite">
+        <span class="pulse" aria-hidden="true"></span>
+        <span id="status-text">Opening store…</span>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" id="btn-primary" href="#">Continue to store</a>
+        <a class="btn btn-ghost" id="btn-alt" href="#" style="display:none">Other store</a>
+      </div>
+
+      <p class="hint">Stuck? <a href="/">Back to website</a></p>
+    </div>
+    <footer>
+      <a href="/">ironzone.in</a>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var IOS_URL = 'https://apps.apple.com/us/app/ironzone-steam-ironing/id6752514444';
+      var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.infyzen.ironzone';
+
+      function isIOS() {
+        var ua = navigator.userAgent || '';
+        if (/iPad|iPhone|iPod/i.test(ua)) return true;
+        if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) return true;
+        return false;
+      }
+
+      function isAndroid() {
+        return /Android/i.test(navigator.userAgent || '');
+      }
+
+      var btnPrimary = document.getElementById('btn-primary');
+      var btnAlt = document.getElementById('btn-alt');
+      var statusEl = document.getElementById('status');
+      var subEl = document.getElementById('sub');
+
+      if (isIOS()) {
+        var storeUrl = IOS_URL;
+        var altUrl = ANDROID_URL;
+        btnPrimary.href = storeUrl;
+        btnPrimary.textContent = 'Open in App Store';
+        btnAlt.href = altUrl;
+        btnAlt.textContent = 'Google Play instead';
+        btnAlt.style.display = 'flex';
+        function go() {
+          window.location.replace(storeUrl);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () { setTimeout(go, 400); });
+        } else {
+          setTimeout(go, 400);
+        }
+      } else if (isAndroid()) {
+        var androidUrl = ANDROID_URL;
+        var iosAlt = IOS_URL;
+        btnPrimary.href = androidUrl;
+        btnPrimary.textContent = 'Open in Google Play';
+        btnAlt.href = iosAlt;
+        btnAlt.textContent = 'App Store instead';
+        btnAlt.style.display = 'flex';
+        function goAndroid() {
+          window.location.replace(androidUrl);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () { setTimeout(goAndroid, 400); });
+        } else {
+          setTimeout(goAndroid, 400);
+        }
+      } else {
+        statusEl.style.display = 'none';
+        subEl.textContent =
+          'Download the IRON ZONE app on your phone. Book pickups, track orders, and more — pick your store below.';
+        btnPrimary.href = IOS_URL;
+        btnPrimary.textContent = 'Download on the App Store';
+        btnAlt.href = ANDROID_URL;
+        btnAlt.textContent = 'Get it on Google Play';
+        btnAlt.style.display = 'flex';
+      }
+    })();
+  </script>
+</body>
+</html>
